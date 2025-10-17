@@ -1,5 +1,6 @@
 package dogapi;
 
+import jdk.jfr.ContentType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,6 +16,7 @@ import java.util.*;
  * exceptions to align with the requirements of the BreedFetcher interface.
  */
 public class DogApiBreedFetcher implements BreedFetcher {
+
     private final OkHttpClient client = new OkHttpClient();
 
     /**
@@ -24,12 +26,35 @@ public class DogApiBreedFetcher implements BreedFetcher {
      * @throws BreedNotFoundException if the breed does not exist (or if the API call fails for any reason)
      */
     @Override
-    public List<String> getSubBreeds(String breed) {
+    public List<String> getSubBreeds(String breed) throws IOException {
+        final String url = String.format("https://dog.ceo/api/breed/%s/list", breed);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
         // TODO Task 1: Complete this method based on its provided documentation
         //      and the documentation for the dog.ceo API. You may find it helpful
         //      to refer to the examples of using OkHttpClient from the last lab,
         //      as well as the code for parsing JSON responses.
-        // return statement included so that the starter code can compile and run.
-        return new ArrayList<>();
+
+        try (Response response = client.newCall(request).execute()) {
+            if(!response.isSuccessful() ||  response.body() == null) {
+                throw new IOException("Failed to fetch sub-breeds for" + breed);
+            }
+            String responseBody = response.body().string();
+            JSONObject json = new JSONObject(responseBody);
+
+            if (!"success".equals(json.getString("status"))){
+                throw new IOException("Failed to fetch sub-breeds for" + breed);
+            }
+            JSONArray msg = json.getJSONArray("message");
+            List<String> result = new ArrayList<>();
+
+            for(int i = 0; i < msg.length(); i++){
+                result.add(msg.getString(i));
+                }
+            return result;
+        }
     }
 }
