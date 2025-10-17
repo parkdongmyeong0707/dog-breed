@@ -37,8 +37,6 @@ public class CachingBreedFetcher implements BreedFetcher {
         }
          catch (BreedNotFoundException e) {
             throw new RuntimeException("Breed not found: " + breed);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

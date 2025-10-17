@@ -14,7 +14,7 @@ public interface BreedFetcher {
      * @return list of sub breeds for the given breed
      * @throws BreedNotFoundException if the breed does not exist
      */
-    List<String> getSubBreeds(String breed) throws IOException, BreedNotFoundException;
+    List<String> getSubBreeds(String breed) throws  BreedNotFoundException;
 
 
     // TODO Task 4: make this a checked exception and update any other code as needed.
@@ -23,5 +23,7 @@ public interface BreedFetcher {
         public BreedNotFoundException(String breed) {
             super("Breed not found: " + breed);
         }
+        public BreedNotFoundException(String breed, Throwable cause) {
+            super("Breed not found: " + breed, cause);}
     }
 }
