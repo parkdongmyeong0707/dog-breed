@@ -17,7 +17,7 @@ public class CachingBreedFetcher implements BreedFetcher {
     // TODO Task 2: Complete this class
     private final BreedFetcher fetcher;
     private Map<String, List<String>> cache;
-    private int callsMade = 0;
+    private int callsMade = 1;
 
     public CachingBreedFetcher(BreedFetcher fetcher) {
             this.fetcher = fetcher;
@@ -36,7 +36,7 @@ public class CachingBreedFetcher implements BreedFetcher {
             return subBreeds;
         }
          catch (BreedNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Breed not found: " + breed);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

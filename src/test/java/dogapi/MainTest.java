@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     @Test
-    void getNumberOfSubBreedsValidBreed() throws IOException, BreedFetcher.BreedNotFoundException {
+    void getNumberOfSubBreedsValidBreed() throws BreedFetcher.BreedNotFoundException, IOException {
         BreedFetcherForLocalTesting mock = new BreedFetcherForLocalTesting();
 
         assertEquals(2, Main.getNumberOfSubBreeds("hound", mock));
     }
 
     @Test
-    void getNumberOfSubBreedsInvalidBreed() throws IOException, BreedFetcher.BreedNotFoundException {
+    void getNumberOfSubBreedsInvalidBreed() throws BreedFetcher.BreedNotFoundException, IOException {
         BreedFetcherForLocalTesting mock = new BreedFetcherForLocalTesting();
 
         assertEquals(0, Main.getNumberOfSubBreeds("cat", mock));

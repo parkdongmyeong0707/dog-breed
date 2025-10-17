@@ -27,8 +27,9 @@ public class Main {
      * @param breed the name of the dog breed
      * @param breedFetcher the breedFetcher to use
      * @return the number of sub breeds. Zero should be returned if there are no sub breeds
-     * returned by the fetcher
+     * returned by the fetcher ok
      */
+
     public static int getNumberOfSubBreeds(String breed, BreedFetcher breedFetcher) throws IOException, BreedFetcher.BreedNotFoundException {
         final String url = String.format("https://dog.ceo/api/breed/%s/list", breed);
         final OkHttpClient client = new OkHttpClient();
