@@ -32,19 +32,18 @@ public class Main {
 
     public static int getNumberOfSubBreeds(String breed, BreedFetcher breedFetcher) throws IOException, BreedFetcher.BreedNotFoundException {
         final String url = String.format("https://dog.ceo/api/breed/%s/list", breed);
-        final OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
 
-        try (Response response = client.newCall(request).execute()){
-            if(!response.isSuccessful() ||  response.body() == null){
-                return 0;
-            }
+        try{
+            List<String> subBreeds = breedFetcher.getSubBreeds(breed);
+            return subBreeds.size();
+        } catch(BreedFetcher.BreedNotFoundException | IOException e){
+            return 0;
         }
-        List<String> subBreeds = breedFetcher.getSubBreeds(breed);
-        return subBreeds.size();
+
     }
 }
