@@ -17,7 +17,7 @@ public class CachingBreedFetcher implements BreedFetcher {
     // TODO Task 2: Complete this class
     private final BreedFetcher fetcher;
     private Map<String, List<String>> cache;
-    private int callsMade = 1;
+    private int callsMade = 0;
 
     public CachingBreedFetcher(BreedFetcher fetcher) {
             this.fetcher = fetcher;
