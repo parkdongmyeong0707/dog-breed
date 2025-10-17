@@ -40,13 +40,14 @@ public class DogApiBreedFetcher implements BreedFetcher {
 
         try (Response response = client.newCall(request).execute()) {
             if(!response.isSuccessful() ||  response.body() == null) {
-                throw new IOException("Failed to fetch sub-breeds for" + breed);
+                throw new BreedNotFoundException(
+                        "Failed to fetch sub-breeds for" + breed);
             }
             String responseBody = response.body().string();
             JSONObject json = new JSONObject(responseBody);
 
             if (!"success".equals(json.getString("status"))){
-                throw new IOException("Failed to fetch sub-breeds for" + breed);
+                throw new BreedNotFoundException("Failed to fetch sub-breeds for" + breed);
             }
             JSONArray msg = json.getJSONArray("message");
             List<String> result = new ArrayList<>();
