@@ -1,11 +1,6 @@
 package dogapi;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
-
-import java.io.IOException;
 import java.util.*;
 
 public class Main {
