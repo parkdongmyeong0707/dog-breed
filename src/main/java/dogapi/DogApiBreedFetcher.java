@@ -26,7 +26,7 @@ public class DogApiBreedFetcher implements BreedFetcher {
      * @throws BreedNotFoundException if the breed does not exist (or if the API call fails for any reason)
      */
     @Override
-    public List<String> getSubBreeds(String breed) throws  BreedNotFoundException,IOException{
+    public List<String> getSubBreeds(String breed) throws  BreedNotFoundException{
         final String url = String.format("https://dog.ceo/api/breed/%s/list", breed);
 
         Request request = new Request.Builder()
@@ -56,7 +56,7 @@ public class DogApiBreedFetcher implements BreedFetcher {
                 }
             return result;
         } catch (IOException e) {
-            throw new IOException(e);
+            throw new BreedNotFoundException(breed, e);
         }
     }
 }
